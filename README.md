@@ -1,64 +1,164 @@
-# 교통사고 과실비율 자동 분석 시스템
+# 🚗 교통사고 과실비율 자동 분석 시스템
 
-블랙박스 사고 영상과 사용자 진술을 입력받아 **사고 유형 / 장소 / 차량 진행 정보를 자동 분류**하고, **객체 탐지·추적 기반의 evidence**와 **규칙·잔차 모델**을 결합해 최종 과실비율과 한국어 자연어 보고서를 생성하는 end-to-end 시스템입니다.
+### An End-to-End Liability Analysis Framework Using Video Understanding & Rule-Based Reasoning
+> 블랙박스 영상과 사용자 진술을 기반으로 사고 상황을 분석하고 과실비율 및 자연어 보고서를 자동 생성하는 시스템
 
-## 전체 구조
+---
 
-![Architecture](docs/architecture.jpg)
+## Overview
+
+본 프로젝트는 블랙박스 사고 영상과 사용자 진술을 입력받아 **사고 유형 / 차량 진행 정보 / 위반사항**을 자동 분석하고, 객체 탐지·추적 기반 evidence와 규칙 기반 추론을 결합하여 최종 과실비율과 한국어 자연어 보고서를 생성하는 end-to-end 시스템입니다.
+
+영상 이해(Video Understanding), 객체 탐지(Object Detection), 궤적 추론(Trajectory Reasoning), LLM 기반 자연어 처리(NLP)를 통합하여 실제 교통사고 과실 분석 프로세스를 자동화했습니다.
+
+---
+
+## Key Features
+
+- 블랙박스 영상 기반 사고 유형 자동 분류
+- 객체 탐지 및 IoU Tracker 기반 차량 추적
+- 진술문 기반 위반사항 자동 추출 (LLM)
+- trajectory evidence 기반 과실 보정
+- Rule-based + Residual Learning 결합 구조
+- 한국어 자연어 사고 분석 보고서 자동 생성
+- Gradio 기반 웹 데모 제공
+
+---
+
+## Tech Stack
+
+#### Language
+
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" height="28"/>
+</p>
+
+---
+
+#### Deep Learning & Computer Vision
+
+<p>
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" height="28"/>
+  <img src="https://img.shields.io/badge/Torchvision-5C6BC0?style=flat-square" height="28"/>
+  <img src="https://img.shields.io/badge/Faster R--CNN-1E88E5?style=flat-square" height="28"/>
+  <img src="https://img.shields.io/badge/R2Plus1D-00897B?style=flat-square" height="28"/>
+</p>
+
+---
+
+#### NLP & LLM
+
+<p>
+  <img src="https://img.shields.io/badge/LLaMA--3.1--8B--Instant-8E24AA?style=flat-square" height="28"/>
+  <img src="https://img.shields.io/badge/Groq-000000?style=flat-square" height="28"/>
+</p>
+
+---
+
+#### Machine Learning & Modeling
+
+<p>
+  <img src="https://img.shields.io/badge/Scikit Learn-F7931E?style=flat-square&logo=scikitlearn&logoColor=white" height="28"/>
+  <img src="https://img.shields.io/badge/RidgeCV-43A047?style=flat-square" height="28"/>
+  <img src="https://img.shields.io/badge/Residual Learning-6D4C41?style=flat-square" height="28"/>
+</p>
+
+---
+
+#### Visualization & Interface
+
+<p>
+  <img src="https://img.shields.io/badge/Gradio-FF9800?style=flat-square" height="28"/>
+  <img src="https://img.shields.io/badge/OpenCV-27338E?style=flat-square&logo=opencv&logoColor=white" height="28"/>
+</p>
+
+---
+
+## Pipeline
+
+<img width="4021" height="5263" alt="architecture" src="https://github.com/user-attachments/assets/2d6b7365-9ab2-4cc1-931c-9f0cbdcf3d0f" />
+
+---
+
+## System Architecture
 
 | 단계 | 모듈 | 모델 / 기법 |
 |---|---|---|
-| Scene / Case Anchor | 영상 분류 | R2Plus1D (사고 장소 특징, A/B 진행 정보) |
+| Scene / Case Anchor | 영상 분류 | R2Plus1D |
 | Statement Parsing | 위반사항 추출 | LLaMA-3.1-8B-Instant (Groq) |
 | Perception | 객체 탐지 / 추적 | Faster R-CNN + IoU Tracker |
-| Trajectory Reasoning | evidence 산출 | bbox track → entry order / no-deceleration / evasive action |
-| Rule + Score Engine | 기준 비율 + 보정 | Lookup table + RidgeCV (잔차 학습) |
-| Report Generation | 자연어 보고서 | LLaMA-3.1-8B-Instant (Groq) |
+| Trajectory Reasoning | evidence 생성 | bbox track 기반 행동 분석 |
+| Rule + Score Engine | 기준 비율 + 보정 | Lookup Table + RidgeCV |
+| Report Generation | 자연어 보고서 생성 | LLaMA-3.1-8B-Instant (Groq) |
 
-## 프로젝트 구조
+---
 
-```text
-2026-1-semester-CV-project/
-├── app.py                          # Gradio 웹 데모
-├── train_video_classifier.py       # R2Plus1D 학습 스크립트
+## Results
+
+#### Main Findings
+
+- 블랙박스 영상 기반 사고 유형 자동 분류 가능
+- trajectory evidence 기반 과실 보정 성능 확인
+- 규칙 기반 시스템 대비 상황 적응력 향상
+- 자연어 보고서 자동 생성으로 해석 가능성 강화
+- Video Understanding + Rule-based Reasoning 결합 구조 검증
+
+---
+
+## Directory Structure
+
+```bash
+.
+├── app.py
+├── train_video_classifier.py
 ├── detect/
-│   ├── train_detector.py           # Faster R-CNN 학습 스크립트
-│   └── detection_outputs/          # 학습된 detector 가중치
+│   ├── train_detector.py
+│   └── detection_outputs/
 ├── classification/
-│   └── video_classification_outputs/  # 학습된 classifier 가중치
+│   └── video_classification_outputs/
 ├── scripts/
-│   ├── train_adjustment.py         # 잔차 모델 학습 (RidgeCV)
-│   ├── run_case.py                 # CLI 추론 (영상 1건)
+│   ├── train_adjustment.py
+│   ├── run_case.py
 │   ├── build_adjustment_csv.py
 │   ├── build_adjustment_csv_from_labels.py
 │   └── prepare_input.py
 ├── src/accident_liability/
-│   ├── scene/                      # 영상 분류기 + 클래스 매핑
-│   ├── perception/                 # detector + IoU tracker
-│   ├── trajectory/                 # bbox → evidence 추출
-│   ├── rules/                      # base ratio lookup + adjustment
-│   ├── llm/                        # Groq violation parser
-│   ├── report/                     # 보고서 generator
-│   ├── pipeline/                   # end-to-end orchestrator
-│   └── schemas.py                  # 공용 dataclass
+│   ├── scene/
+│   ├── perception/
+│   ├── trajectory/
+│   ├── rules/
+│   ├── llm/
+│   ├── report/
+│   ├── pipeline/
+│   └── schemas.py
 ├── data/
-│   ├── lookup/                     # base_ratio_table.csv, class_maps/
-│   └── adjustment_input.csv        # 잔차 학습용 CSV
-├── outputs/adjustment/             # 학습된 adjustment model
-└── requirements.txt
+│   ├── lookup/
+│   └── adjustment_input.csv
+├── outputs/adjustment/
+├── requirements.txt
+└── README.md
 ```
 
-## 설치
+---
+
+## Run
+
+### Installation
 
 ```bash
-git clone https://github.com/sdfjslfjafkdl/2026-1-semester-CV-project.git
-cd 2026-1-semester-CV-project
+git clone https://github.com/your-repository.git
+
+cd your-repository
 
 pip install -r requirements.txt
-pip install python-dotenv          # .env 로드용
+pip install python-dotenv
 ```
 
-ffmpeg 시스템 패키지도 필요합니다:
+---
+
+### Additional Dependency
+
+`ffmpeg` 시스템 패키지가 필요합니다.
 
 ```bash
 # macOS
@@ -68,31 +168,38 @@ brew install ffmpeg
 apt-get update && apt-get install -y ffmpeg
 ```
 
-## Groq API Key 설정
+---
 
-자연어 보고서 생성에는 [Groq API key](https://console.groq.com)가 필요합니다 (무료).
+### Groq API Key Setup
+
+자연어 보고서 생성에는 Groq API Key가 필요합니다. (무료)
 
 ```bash
 echo "GROQ_API_KEY=your_api_key" > .env
 ```
 
-## 앱 실행
+---
+
+### Gradio Demo
 
 ```bash
 # CPU
 python app.py
 
-# GPU (RunPod 등)
+# GPU
 python app.py --device cuda --share
 ```
 
-`--share` 옵션은 외부에서 접속 가능한 `*.gradio.live` 공개 URL을 생성합니다. 로컬은 `http://localhost:7860` 으로 접속.
+- Local URL: `http://localhost:7860`
+- `--share` 옵션 사용 시 외부 공개 URL 생성
 
-## 모델 학습
+---
 
-### 1) 영상 분류기 (Scene / Case Anchor)
+## Model Training
 
-R2Plus1D 기반으로 `accident_place_feature`, `vehicle_a_progress_info`, `vehicle_b_progress_info` 세 가지 레이블을 multi-head로 학습합니다.
+### 1) Video Classifier
+
+R2Plus1D 기반 multi-head classification 모델 학습
 
 ```bash
 python train_video_classifier.py \
@@ -106,19 +213,27 @@ python train_video_classifier.py \
   --device cuda:0
 ```
 
-### 2) 객체 탐지기 (Perception)
+---
 
-차량 / 자전거 / 이륜차 등을 탐지하는 Faster R-CNN을 COCO 형식 어노테이션으로 학습합니다. 경로는 `detect/train_detector.py` 내부에 하드코딩되어 있습니다 (`detect/processed/{train,val}_coco.json`).
+### 2) Object Detector
+
+Faster R-CNN 기반 객체 탐지 모델 학습
 
 ```bash
 python detect/train_detector.py
 ```
 
-학습된 가중치는 `detect/detection_outputs/checkpoints/faster_rcnn_baseline/best.pth` 로 저장됩니다.
+학습된 가중치:
 
-### 3) 가감 보정 모델 (Adjustment / Residual)
+```bash
+detect/detection_outputs/checkpoints/faster_rcnn_baseline/best.pth
+```
 
-evidence 특성과 (실측 과실비율 − 기준 과실비율)을 RidgeCV로 회귀합니다.
+---
+
+### 3) Adjustment Model
+
+evidence 기반 residual learning 모델 학습
 
 ```bash
 python scripts/train_adjustment.py \
@@ -126,11 +241,18 @@ python scripts/train_adjustment.py \
   --output_dir outputs/adjustment
 ```
 
-산출물: `outputs/adjustment/adjustment_model.joblib`, `learned_adjustment_table.csv`
+산출물:
 
-## 추론 (CLI)
+```bash
+outputs/adjustment/adjustment_model.joblib
+learned_adjustment_table.csv
+```
 
-GUI 없이 영상 1건만 추론할 때 사용합니다.
+---
+
+## Inference (CLI)
+
+GUI 없이 단일 사고 영상을 추론할 때 사용합니다.
 
 ```bash
 python scripts/run_case.py \
@@ -144,7 +266,19 @@ python scripts/run_case.py \
   --use_llm
 ```
 
-옵션 요약:
-- `--classifier_weights` 지정 시 영상에서 anchor (사고 장소 특징, A/B 진행 정보)를 자동 예측
-- 미지정 시 `--accident_place_feature`, `--vehicle_a_progress_info`, `--vehicle_b_progress_info` 를 수동 입력해야 함
-- `--use_llm` 플래그로 진술을 LLM으로 파싱하여 위반사항을 추출 (`GROQ_API_KEY` 필요)
+### Options
+
+- `--classifier_weights`
+  - 영상 기반 anchor 정보 자동 예측
+- 미지정 시
+  - 사고 장소 및 진행 정보 수동 입력 필요
+- `--use_llm`
+  - 진술문 기반 위반사항 자동 추출 활성화
+
+---
+
+## Conclusion
+
+본 프로젝트는 영상 이해와 규칙 기반 추론, 그리고 LLM 기반 자연어 처리를 통합하여 교통사고 과실비율 분석 과정을 자동화한 시스템입니다.
+특히 trajectory evidence와 residual learning 기반 보정 구조를 통해 기존 규칙 기반 방식의 한계를 보완하고 상황 적응력을 향상시켰습니다.
+또한 블랙박스 영상과 사용자 진술을 함께 활용함으로써 실제 사고 분석 프로세스와 유사한 end-to-end 파이프라인을 구현했다는 점에서 의의가 있습니다.

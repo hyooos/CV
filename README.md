@@ -1,18 +1,15 @@
 # 🚗 교통사고 과실비율 자동 분석 시스템
 
-### 블랙박스 영상과 사용자 진술 기반 Hybrid 사고 분석 프레임워크
-
-> 블랙박스 영상과 사용자 진술을 기반으로 사고 상황을 분석하고 과실비율 및 한국어 자연어 보고서를 자동 생성하는 시스템
+### An End-to-End Liability Analysis Framework Using Video Understanding & Rule-Based Reasoning
+> 블랙박스 영상과 사용자 진술을 기반으로 사고 상황을 분석하고 과실비율 및 자연어 보고서를 자동 생성하는 시스템
 
 ---
 
 ## Overview
 
-본 프로젝트는 블랙박스 사고 영상과 사용자 진술을 입력받아 사고 유형, 차량 진행 정보, 위반사항 등을 자동 분석하는 Hybrid AI 기반 사고 분석 시스템입니다.
+본 프로젝트는 블랙박스 사고 영상과 사용자 진술을 입력받아 **사고 유형 / 차량 진행 정보 / 위반사항**을 자동 분석하고, 객체 탐지·추적 기반 evidence와 규칙 기반 추론을 결합하여 최종 과실비율과 한국어 자연어 보고서를 생성하는 end-to-end 시스템입니다.
 
-영상 이해(Video Understanding), 객체 탐지(Object Detection), 차량 추적(Tracking), trajectory evidence 분석, Rule-based reasoning, LLM 기반 자연어 처리(NLP)를 결합하여 실제 교통사고 분석 프로세스를 자동화했습니다.
-
-또한 Rule-based 과실 추론과 Residual Learning 기반 보정 구조를 함께 사용하여 보다 현실적인 과실비율 산출이 가능하도록 설계했습니다.
+영상 이해(Video Understanding), 객체 탐지(Object Detection), 궤적 추론(Trajectory Reasoning), LLM 기반 자연어 처리(NLP)를 통합하여 실제 교통사고 과실 분석 프로세스를 자동화했습니다.
 
 ---
 
@@ -73,6 +70,7 @@
 <p>
   <img src="https://img.shields.io/badge/Gradio-FF9800?style=flat-square" height="28"/>
   <img src="https://img.shields.io/badge/OpenCV-27338E?style=flat-square&logo=opencv&logoColor=white" height="28"/>
+
 </p>
 
 ---
